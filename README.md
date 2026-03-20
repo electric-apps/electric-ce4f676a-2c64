@@ -1,43 +1,49 @@
-# Kyle's Stack
+# Todo App
 
-A starter for building apps with TanStack Start, Radix UI, and capsize typography — with [`@tanstack/intent`](https://github.com/TanStack/intent) skills pre-installed for **Electric**, **TanStack DB**, and **Durable Streams**.
+A reactive, real-time todo application built with Electric SQL + TanStack DB. Changes sync instantly across all connected clients via Postgres-backed Electric sync.
 
-## Quick Start
+## Features
+
+- Create, edit, and delete todos with title, description, priority, and due date
+- Mark todos as complete with a single click
+- Filter todos by status: All, Active, Completed
+- Priority levels: Low, Medium, High with color-coded badges
+- Optional due dates with calendar display
+- Real-time sync — changes appear instantly across browser tabs and devices
+- Optimistic mutations — UI updates immediately, syncs in background
+
+## Tech Stack
+
+- **[Electric SQL](https://electric-sql.com)** — Real-time Postgres sync to the client
+- **[TanStack DB](https://tanstack.com/db)** — Reactive collections with live queries and optimistic mutations
+- **[Drizzle ORM](https://orm.drizzle.team)** — Type-safe Postgres schema and migrations
+- **[TanStack Start](https://tanstack.com/start)** — React meta-framework with SSR
+- **[Radix UI Themes](https://www.radix-ui.com/themes)** — Accessible component library
+
+## Running Locally
 
 ```bash
-npx gitpick KyleAMathews/kpb my-app
-cd my-app
-pnpm install
-pnpm dev
+pnpm install && pnpm dev:start
 ```
 
-## Included Skills
+Then open [http://localhost:5173](http://localhost:5173).
 
-This starter comes with skills pre-installed. Just ask your coding agent:
+## Project Structure
 
-**Electric** — Sync Postgres to your app
-- "Set up Electric sync for my Postgres database"
-- "Run the Electric security checklist"
-
-**TanStack DB** — Reactive client-side data
-- "Add a TanStack DB collection for the users table"
-- "Set up live queries for my todos"
-
-**Durable Streams** — Real-time state sync
-- "Set up a Durable Streams dev environment"
-- "Add presence tracking to my app"
-
-**Radix + Capsize** — Typography
-- "Switch to the Playfair theme"
-- "Show me more font theme options"
-
-## What's Included
-
-- **TanStack Start** - Full-stack React framework
-- **Radix UI** - Accessible components with themes
-- **Capsize typography** - Pixel-perfect text rendering
-- **Dozens of font pairings included** - Ask the agent to set one up
-- **Biome** - Fast linting and formatting
+```
+src/
+├── db/
+│   ├── schema.ts          # Drizzle schema (todos table)
+│   ├── zod-schemas.ts     # Zod schemas derived from Drizzle
+│   └── collections/
+│       └── todos.ts       # TanStack DB collection with Electric sync
+├── routes/
+│   ├── index.tsx          # Main todo page (ssr: false, preloads collection)
+│   └── api/
+│       ├── todos.ts       # Electric shape proxy route
+│       └── mutations/
+│           └── todos.ts   # CRUD mutation handlers (POST/PUT/DELETE)
+```
 
 ## License
 
